@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS t_info_table (
+infoid TEXT NULL,
+info TEXT DEFAULT NULL,
+time TEXT DEFAULT NULL,
+PRIMARY KEY (infoid)
+)|
+CREATE TABLE IF NOT EXISTS t_login_users (
+userid TEXT NULL,
+account TEXT DEFAULT NULL,
+passwd TEXT DEFAULT NULL,
+logindate TEXT DEFAULT NULL,
+soundenable TEXT DEFAULT 1,
+shakeenable TEXT DEFAULT 1,
+soundname TEXT DEFAULT 'in.caf',
+PRIMARY KEY (userid)
+)
