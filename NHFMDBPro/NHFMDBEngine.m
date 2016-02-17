@@ -6,8 +6,13 @@
 //  Copyright (c) 2015年 hu jiaju. All rights reserved.
 //
 
+/*
+ *非线程安全使用示例
+ */
+
 #import "NHFMDBEngine.h"
 #import <FMDB.h>
+#import <sqlite3.h>
 
 static NSString *NHDBNAME = @"NHINFO.DB";
 static NSString *NHSQLS   = @"NH_SQLS";
@@ -79,6 +84,12 @@ static NHFMDBEngine *instance = nil;
         }
         [_DB commit];///提交事务
         [_DB close];///使用完毕记得关闭数据库
+    }
+    
+    ///无加密数据库迁移
+    if(![_DB goodConnection]){ //无效连接
+        [_DB close];
+        [self upgradeDatabase:dbpath];
     }
     return ret;
 }
@@ -218,5 +229,60 @@ static NHFMDBEngine *instance = nil;
     [self closeDB];
     return infos;
 }
+
+#pragma mark == 数据库迁移==
+
+- (void)upgradeDatabase:(NSString *)path{
+    NSString *tmppath = [self changeDatabasePath:path];
+    if(tmppath){
+        const char* sqlQ = [[NSString stringWithFormat:@"ATTACH DATABASE '%@' AS encrypted KEY '%@'",path,@"123456"] UTF8String];
+        
+        sqlite3 *unencrypted_DB;
+        if (sqlite3_open([tmppath UTF8String], &unencrypted_DB) == SQLITE_OK) {
+            
+            // Attach empty encrypted database to unencrypted database
+            int status = sqlite3_exec(unencrypted_DB, sqlQ, NULL, NULL, NULL);
+            
+            // export database
+            status = sqlite3_exec(unencrypted_DB, "SELECT sqlcipher_export('encrypted');", NULL, NULL, NULL);
+            
+            // Detach encrypted database
+            status = sqlite3_exec(unencrypted_DB, "DETACH DATABASE encrypted;", NULL, NULL, NULL);
+            
+            status = sqlite3_close(unencrypted_DB);
+            
+            //delete tmp database
+            [self removeDatabasePath:tmppath];
+        }
+        else {
+            sqlite3_close(unencrypted_DB);
+            NSAssert1(NO, @"Failed to open database with message ‘%s‘.", sqlite3_errmsg(unencrypted_DB));
+        }
+    }
+}
+
+- (NSString *)changeDatabasePath:(NSString *)path{
+    NSError * err = NULL;
+    NSFileManager * fm = [[NSFileManager alloc] init];
+    NSString *tmppath = [path stringByReplacingOccurrencesOfString:@"sqlite" withString:@"tem"];
+    BOOL result = [fm moveItemAtPath:path toPath:tmppath error:&err];
+    if(!result){
+        NSLog(@"Error: %@", err);
+        return nil;
+    }else{
+        return tmppath;
+    }
+}
+
+-(void)removeDatabasePath:(NSString *)path
+{
+    NSError * err = NULL;
+    NSFileManager * fm = [[NSFileManager alloc] init];
+    BOOL result = [fm removeItemAtPath:path error:&err];
+    if(!result){
+        NSLog(@"Error: %@", err);
+    }
+}
+
 
 @end

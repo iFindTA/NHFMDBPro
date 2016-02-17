@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		29F609F2E65E58D69D250F74 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47D061F3D720F2142E09F62B /* libPods.a */; };
+		608101A21C741BEF000034C3 /* NHDBEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 608101A11C741BEF000034C3 /* NHDBEngine.m */; };
 		60C836D81BA033170046A561 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C836D71BA033170046A561 /* main.m */; };
 		60C836DB1BA033170046A561 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C836DA1BA033170046A561 /* AppDelegate.m */; };
 		60C836DE1BA033170046A561 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C836DD1BA033170046A561 /* ViewController.m */; };
@@ -32,6 +33,8 @@
 /* Begin PBXFileReference section */
 		055F9D77274586F7E27897FF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		47D061F3D720F2142E09F62B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		608101A01C741BEF000034C3 /* NHDBEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHDBEngine.h; sourceTree = "<group>"; };
+		608101A11C741BEF000034C3 /* NHDBEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHDBEngine.m; sourceTree = "<group>"; };
 		60C836D21BA033170046A561 /* NHFMDBPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NHFMDBPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60C836D61BA033170046A561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60C836D71BA033170046A561 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -104,6 +107,8 @@
 			children = (
 				60C836FB1BA0333B0046A561 /* NHFMDBEngine.h */,
 				60C836FC1BA0333B0046A561 /* NHFMDBEngine.m */,
+				608101A01C741BEF000034C3 /* NHDBEngine.h */,
+				608101A11C741BEF000034C3 /* NHDBEngine.m */,
 				60C836D91BA033170046A561 /* AppDelegate.h */,
 				60C836DA1BA033170046A561 /* AppDelegate.m */,
 				60C836DC1BA033170046A561 /* ViewController.h */,
@@ -179,6 +184,7 @@
 				60C836CF1BA033170046A561 /* Frameworks */,
 				60C836D01BA033170046A561 /* Resources */,
 				F35EC3BC8269F7DCC5150698 /* Copy Pods Resources */,
+				99F2F660D7A6C4C389D119B8 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -266,6 +272,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		99F2F660D7A6C4C389D119B8 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		EE470949C1C89C4EC17446E7 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -306,6 +327,7 @@
 				60C836DE1BA033170046A561 /* ViewController.m in Sources */,
 				60C836DB1BA033170046A561 /* AppDelegate.m in Sources */,
 				60C836FD1BA0333B0046A561 /* NHFMDBEngine.m in Sources */,
+				608101A21C741BEF000034C3 /* NHDBEngine.m in Sources */,
 				60C836D81BA033170046A561 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
